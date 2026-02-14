@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cuatro flores para ti</title>
+
+<link rel="stylesheet" href="styles.css">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<div class="petals"></div>
+
+<div class="container">
+
+<header>
+<h1>Cuatro flores para ti</h1>
+<p class="subtitle">Un obsequio virtual, pero sincero.</p>
+</header>
+
+<div class="flowers">
+
+<div class="flower">
+<div class="emoji">🌼</div>
+<h2>Jazmines</h2>
+<p>
+Jazmines por tu sensibilidad.<br>
+Porque detrás de tu carácter fuerte, existe una dulzura que aparece en los momentos más inesperados.
+</p>
+</div>
+
+<div class="flower">
+<div class="emoji">🌷</div>
+<h2>Tulipanes</h2>
+<p>
+Tulipanes para mi loca.<br>
+Por esa forma impredecible y única que tienes de ser tú.
+</p>
+</div>
+
+<div class="flower">
+<div class="emoji">🤍</div>
+<h2>Lirios</h2>
+<p>
+Lirios para mi delirio.<br>
+Porque sin darme cuenta, te volviste un pensamiento constante.
+</p>
+</div>
+
+<div class="flower">
+<div class="emoji">🌸</div>
+<h2>Margaritas</h2>
+<p>
+Margaritas para mi amargadita.<br>
+Incluso cuando reniegas un poco, sigues siendo mi parte favorita.
+</p>
+</div>
+
+</div>
+
+<div class="button-container">
+<button id="acceptBtn">Aceptar estas flores</button>
+</div>
+
+<div id="finalScene" class="final-scene">
+<h2 id="herName">Cincin</h2>
+<p id="typewriter"></p>
+</div>
+
+</div>
+
+<!-- AUDIO -->
+<audio id="bgMusic" loop>
+<source src="musica.mp3" type="audio/mpeg">
+</audio>
+
+<button id="musicControl" class="music-btn">⏸</button>
+
+<script>
+
+const button = document.getElementById("acceptBtn");
+const body = document.body;
+const finalScene = document.getElementById("finalScene");
+const typewriter = document.getElementById("typewriter");
+const music = document.getElementById("bgMusic");
+const musicBtn = document.getElementById("musicControl");
+
+const messageText = "Gracias por aceptarlas. Incluso a distancia, quiero seguir construyendo algo bonito contigo.";
+
+/* AUTOPLAY INTELIGENTE */
+window.addEventListener("load", () => {
+    const playPromise = music.play();
+    if (playPromise !== undefined) {
+        playPromise.catch(() => {
+            document.addEventListener("click", () => {
+                music.play();
+            }, { once: true });
+        });
+    }
+});
+
+/* BOTÓN MÚSICA */
+musicBtn.addEventListener("click", () => {
+    if (music.paused) {
+        music.play();
+        musicBtn.innerHTML = "⏸";
+    } else {
+        music.pause();
+        musicBtn.innerHTML = "▶";
+    }
+});
+
+/* ESCENA FINAL */
+button.addEventListener("click", () => {
+    body.classList.add("romantic-bg");
+    finalScene.classList.add("show-scene");
+    button.style.display = "none";
+    typeWriterEffect(messageText);
+});
+
+/* EFECTO MÁQUINA DE ESCRIBIR */
+function typeWriterEffect(text) {
+    let i = 0;
+    function typing() {
+        if (i < text.length) {
+            typewriter.innerHTML += text.charAt(i);
+            i++;
+            setTimeout(typing, 40);
+        }
+    }
+    typing();
+}
+
+</script>
+
+</body>
+</html>
